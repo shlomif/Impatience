@@ -27,39 +27,37 @@ namespace Game
 {
     State Manager::state;
     Move  Manager::last_moves[0];
+    Move  Manager::last_undos[0];
 
     void Manager::Load()
     {
-
+        // TODO: Load here everything you need in order for the manager to function.
     }
 
     void Manager::Update()
     {
-
+        // TODO: Write whatever the manager will do every main-loop iteration.
     }
 
-    void Manager::Shuffle()
+    void Manager::Shuffle() // ASSIGNED: Nitin
     {
-        //TODO - knitinr
+        // TODO: Delete all cards (if any) and create a random layout.
     }
 
     bool Manager::TryMove(Move * move)
     {
-
+        // TODO: Check if move is a legal move.
+        //       If it is, execute it an return true.
+        //       Else, return false.
     }
 
     void Manager::Undo(const int ammount)
     {
-
+        // TODO: Undo an ammount of moves from last_moves[], add them to last_undos[] and remove them from last_moves[]
     }
 
     void Manager::Redo(const int ammount)
     {
-
-    }
-
-    Manager::Manager()
-    {
-
+        // TODO: TryMove an ammount of moves from last_undos[], add them to last_moves and remove them from last_undos[]
     }
 }

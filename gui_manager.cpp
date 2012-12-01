@@ -49,7 +49,7 @@ namespace GUI
         }
     }
 
-    void Manager::Update()
+    void Manager::Update() // ASSIGNED: Ivan
     {
         SDL_Rect rect;
 
@@ -93,12 +93,13 @@ namespace GUI
 
     Game::Card * Manager::GetCardAt(const int x, const int y)
     {
-
+        // TODO: Figure out which card is at x/y, return a pointer to it
     }
 
-    int Manager::GetSlotAt(const int x, const int y)
+    int Manager::GetColumnAt(const int x, const int y)
     {
-
+        // TODO: Figure out which zone type (column/foundation/freecell) are the x/y in.
+        //       Figure out which column in this zone the x/y are, and return it.
     }
 
     void Manager::SnapToCursor(Game::Card * to_snap)
