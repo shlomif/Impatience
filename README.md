@@ -5,6 +5,10 @@ Impatience
 >
 > > Ivan Rubinson
 > >
+> ##Managed by:
+>
+> > Shlomi Fish
+> >
 
 ***
 
@@ -17,4 +21,4 @@ The project has been initiated by Shlomi Fish, and is under his management.
 LICENSE
 --
 
-MIT License
+MIT/X11 License ([http://en.wikipedia.org/wiki/MIT_License] [http://opensource.org/licenses/mit-license.php])
