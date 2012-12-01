@@ -27,26 +27,31 @@ namespace Game
 {
     int Card::GetSuit()
     {
-
+        return this->suit;
     }
 
     int Card::GetRank()
     {
-
+        return this->rank;
     }
 
     bool Card::IsHidden()
     {
-
+        return this->is_hidden;
     }
 
     void Card::Flip()
     {
-
+        if(this->is_hidden == false)
+            this->is_hidden = true;
+        else
+            this->is_hidden = false;
     }
 
-    Card::Card()
+    Card::Card(const char suit, const int rank)
     {
-
+        this->is_hidden = true;
+        this->suit      = suit;
+        this->rank      = rank;
     }
 }

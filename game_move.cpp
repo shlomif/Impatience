@@ -21,12 +21,15 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
+#include <cstdlib>
 #include "game_move.h"
 
 namespace Game
 {
     Move::Move()
     {
-
+        this->card  = NULL;
+        this->type  = 0;
+        this->place = 0;
     }
 }

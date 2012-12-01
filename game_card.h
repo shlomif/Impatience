@@ -39,7 +39,7 @@ namespace Game
         bool IsHidden();
         void Flip();
 
-        Card();
+        Card(const char = 0, const int = 0);
     };
 }
 

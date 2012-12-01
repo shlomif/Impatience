@@ -101,9 +101,9 @@ namespace GUI
 
     }
 
-    void Manager::SnapToCursor(Game::Card*)
+    void Manager::SnapToCursor(Game::Card * to_snap)
     {
-
+        Manager::snapped_card = to_snap;
     }
 
     bool Manager::WindowIsOpen()
