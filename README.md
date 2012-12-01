@@ -21,4 +21,4 @@ The project has been initiated by Shlomi Fish, and is under his management.
 LICENSE
 --
 
-MIT/X11 License ([http://en.wikipedia.org/wiki/MIT_License] [http://opensource.org/licenses/mit-license.php])
+MIT/X11 License ( http://en.wikipedia.org/wiki/MIT_License , http://opensource.org/licenses/mit-license.php )
