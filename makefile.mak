@@ -73,7 +73,7 @@ endif
 #
 CFLAGS=-I/$(SDLPATH)/include/ $(TC) -w
 
-LDFLAGS=-L/$(SDLPATH)/lib/ $(TLNK) -lSDLmain -lSDL
+LDFLAGS=-L/$(SDLPATH)/lib/ $(TLNK) -lSDLmain -lSDL -lSDL_image
 
 SOURCES=game_card.cpp game_manager.cpp game_move.cpp game_state.cpp gui_area.cpp gui_manager.cpp input_manager.cpp main.cpp $(TFILES)
 
