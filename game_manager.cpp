@@ -40,7 +40,7 @@ namespace Game
 
     void Manager::Shuffle()
     {
-
+        //TODO - knitinr
     }
 
     bool Manager::TryMove(Move * move)

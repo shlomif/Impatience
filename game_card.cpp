@@ -35,22 +35,22 @@ namespace Game
         return this->rank;
     }
 
-    bool Card::IsHidden()
-    {
-        return this->is_hidden;
-    }
+    //bool Card::IsHidden()
+    //{
+    //    return this->is_hidden;
+    //}
 
-    void Card::Flip()
-    {
-        if(this->is_hidden == false)
-            this->is_hidden = true;
-        else
-            this->is_hidden = false;
-    }
+    //void Card::Flip()
+    //{
+    //    if(this->is_hidden == false)
+    //        this->is_hidden = true;
+    //    else
+    //        this->is_hidden = false;
+    //}
 
     Card::Card(const char suit, const int rank)
     {
-        this->is_hidden = true;
+    //    this->is_hidden = true;
         this->suit      = suit;
         this->rank      = rank;
     }
