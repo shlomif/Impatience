@@ -40,7 +40,10 @@ namespace GUI
         static int  spacing;
 
         static SDL_Surface * window;
+        static SDL_Surface * window_background;
         static Game::Card  * snapped_card;
+
+        static void SetBackground(const char*); // Sets the windows background to the file located at the path specified by the parameter.
 
     public:
         static void Load();

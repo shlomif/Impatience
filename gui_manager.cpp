@@ -32,6 +32,7 @@ namespace GUI
     int  Manager::spacing;
 
     SDL_Surface * Manager::window;
+    SDL_Surface * Manager::window_background;
     Game::Card  * Manager::snapped_card;
 
     void Manager::Load()
@@ -45,6 +46,8 @@ namespace GUI
             fprintf(stderr, "%s", SDL_GetError());
             exit(1);
         }
+
+        Manager::SetBackground("bg.bmp");
     }
 
     void Manager::Update() // ASSIGNED: Ivan
@@ -68,23 +71,8 @@ namespace GUI
 
         SDL_FillRect(Manager::window, NULL, 0); // Clear the window of colours
 
-        rect.x = Manager::columns.x;
-        rect.y = Manager::columns.y;
-        rect.w = Manager::columns.w;
-        rect.h = Manager::columns.h;
-        SDL_FillRect(Manager::window, &rect, SDL_MapRGB(Manager::window->format, 255, 0, 0));
-
-        rect.x = Manager::foundations.x;
-        rect.y = Manager::foundations.y;
-        rect.w = Manager::foundations.w;
-        rect.h = Manager::foundations.h;
-        SDL_FillRect(Manager::window, &rect, SDL_MapRGB(Manager::window->format, 0, 255, 0));
-
-        rect.x = Manager::freecells.x;
-        rect.y = Manager::freecells.y;
-        rect.w = Manager::freecells.w;
-        rect.h = Manager::freecells.h;
-        SDL_FillRect(Manager::window, &rect, SDL_MapRGB(Manager::window->format, 0, 0, 255));
+        SDL_BlitSurface(Manager::window_background, NULL, Manager::window, NULL);
+        // TODO: Render cards
 
         SDL_Flip(Manager::window);
     }
@@ -115,5 +103,14 @@ namespace GUI
     void Manager::Close()
     {
         Manager::window_is_open = false;
+    }
+
+    void Manager::SetBackground(const char* path)
+    {
+        Manager::window_background = SDL_LoadBMP(path);
+        if(Manager::window_background == NULL)
+        {
+            fprintf(stderr, "%s", SDL_GetError());
+        }
     }
 }
