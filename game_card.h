@@ -37,8 +37,6 @@ namespace Game
         int  GetRank();
 
         Card(const char = 0, const int = 0);
-
-        friend class Manager;
     };
 }
 
