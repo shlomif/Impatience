@@ -34,16 +34,16 @@ namespace Game
     private:
         static State state;
         static Move  last_moves[];
+        static Move  last_undos[];
 
     public:
         static void Load();
         static void Update();
-        static void Shuffle();
-        static bool TryMove(Move *);
-        static void Undo(const int = 1);
-        static void Redo(const int = 1);
-
-        Manager();
+        static void Shuffle(); // Deletes all cards (if any), and generates a new card layout randomly.
+        static bool TryMove(Move *); // Returns true if the move specified in the parameter is a legal move.
+                                     // False otherwise. If the move is valid, it also executes the move.
+        static void Undo(const int = 1); // Undoes an ammount of moves specified by its parameter.
+        static void Redo(const int = 1); // Redoes an ammount of moves specified by its parameter.
     };
 }
 

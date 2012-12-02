@@ -22,11 +22,24 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "game_state.h"
+#include <cstdlib>
 
 namespace Game
 {
     State::State()
     {
+        int i, j;
 
+        for(i = 0; i < Constants::COLUMNS; i++)
+            for(j = 0; j < Constants::CARDS/4; j++)
+                this->column[i][j] = NULL;
+
+        for(i = 0; i < Constants::FOUNDATIONS; i++)
+            for(j = 0; j < Constants::CARDS/4/4; j++)
+                this->foundation[i][j] = NULL;
+
+        for(i = 0; i < Constants::FREECELLS; i++)
+            for(j = 0; j < Constants::CARDS/4; j++)
+                this->freecell[i][j] = NULL;
     }
 }

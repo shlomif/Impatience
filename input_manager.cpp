@@ -31,7 +31,7 @@ namespace Input
 
     void Manager::Load()
     {
-
+        // TODO: Load here everything you need for the manager to function.
     }
 
     void Manager::Update()

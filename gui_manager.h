@@ -26,6 +26,7 @@
 
 #include "game_card.h"
 #include "gui_area.h"
+#include <SDL/SDL.h>
 
 namespace GUI
 {
@@ -38,16 +39,17 @@ namespace GUI
         static Area freecells;
         static int  spacing;
 
-        static Game::Card * snapped_card;
+        static SDL_Surface * window;
+        static Game::Card  * snapped_card;
 
     public:
         static void Load();
         static void Update();
-        static Game::Card * GetCardAt(const int, const int);
-        static int GetSlotAt(const int, const int);
-        static void SnapToCursor(Game::Card*);
-        static bool WindowIsOpen();
-        static void Close();
+        static Game::Card * GetCardAt(const int, const int); // Returns a pointer to the card at the x/y specified by its parameters.
+        static int GetColumnAt(const int, const int); // Returns in which column the x/y specified by its parameters are. Not a column as a zone, but a column inside a zone.
+        static void SnapToCursor(Game::Card*); // Attaches the card specified by its parameter to the cursor. The card will follow the cursor.
+        static bool WindowIsOpen(); // Returns false if the window is closed. True otherwise.
+        static void Close(); // Tells the manager to close the window. The closing isn't done immediately.
     };
 }
 
