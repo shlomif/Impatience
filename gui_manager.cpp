@@ -44,7 +44,7 @@ namespace GUI
         window = SDL_SetVideoMode(852, 480, 0, SDL_SWSURFACE);
         if(window == NULL)
         {
-            fprintf(stderr, SDL_GetError());
+            fprintf(stderr, "%s", SDL_GetError());
             exit(1);
         }
     }
@@ -93,12 +93,12 @@ namespace GUI
 
     Game::Card * Manager::GetCardAt(const int x, const int y)
     {
-
+        return NULL;
     }
 
     int Manager::GetSlotAt(const int x, const int y)
     {
-
+        return -1;
     }
 
     void Manager::SnapToCursor(Game::Card * to_snap)

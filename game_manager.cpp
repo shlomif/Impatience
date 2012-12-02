@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 Ivan Rubinson
+/* Copyright (c) 2012 Ivan Rubinson, Nitin Reddy Katkam
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -22,6 +22,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "game_manager.h"
+#include <cstdlib>
+#include <ctime>
+#include <assert.h>
 
 namespace Game
 {
@@ -30,7 +33,33 @@ namespace Game
 
     void Manager::Load()
     {
+        int i, j;
 
+        //init column pointers
+        for(i=0; i<Constants::COLUMNS; i++)
+        {
+            for(j=0; j<Constants::CARDS/4; j++)
+            {
+                Game::Manager::state.column[i][j] = NULL;
+            }
+        }
+
+        //init clear freecells ptrs
+        for (i=0; i<Constants::FREECELLS; i++)
+        {
+            Game::Manager::state.freecell[i] = NULL;
+        }
+
+        //init foundation ptrs
+        for (i=0; i<Constants::FOUNDATIONS; i++)
+        {
+            for (j=0; j<Constants::CARDS/4; j++)
+            {
+                Game::Manager::state.foundation[i][j] = NULL;
+            }
+        }
+
+        Shuffle();
     }
 
     void Manager::Update()
@@ -40,12 +69,81 @@ namespace Game
 
     void Manager::Shuffle()
     {
-        //TODO - knitinr
+        int cards[Constants::CARDS];
+        int i, j, temp;
+        int val;
+
+        //pre-populate
+        for(i=0; i<Constants::CARDS; i++)
+        {
+            cards[i] = i;
+        }
+
+        //shuffle
+        for(j=0; j<Constants::CARDS; j++)
+        {
+            for (i=0; i<Constants::CARDS; i++)
+            {
+                srand(time(NULL));
+                if (rand()%2)
+                {
+                    temp = cards[i];
+                    cards[i] = cards[j];
+                    cards[j] = temp;
+                }
+            }
+        }
+
+        //clear columns
+        for(i=0; i<Constants::COLUMNS; i++)
+        {
+            for(j=0; j<Constants::CARDS/4; j++)
+            {
+                if (Game::Manager::state.column[i][j] != NULL)
+                {
+                    delete Game::Manager::state.column[i][j];
+                    Game::Manager::state.column[i][j] = NULL;
+                }
+            }
+        }
+
+        //clear freecells
+        for (i=0; i<Constants::FREECELLS; i++)
+        {
+            if (Game::Manager::state.freecell[i] != NULL)
+            {
+                delete Game::Manager::state.freecell[i];
+                Game::Manager::state.freecell[i] = NULL;
+            }
+        }
+
+        //clear foundation
+        for (i=0; i<Constants::FOUNDATIONS; i++)
+        {
+            for (j=0; j<Constants::CARDS/4; j++)
+            {
+                if (Game::Manager::state.foundation[i][j] != NULL)
+                {
+                    delete Game::Manager::state.foundation[i][j];
+                    Game::Manager::state.foundation[i][j] = NULL;
+                }
+            }
+        }
+
+        //build state
+        for (i=0; i<Constants::CARDS; i++)
+        {
+            val = cards[i];
+            Game::Card* currCard = new Game::Card((char)val/(Constants::CARDS/4), val%(Constants::CARDS/4)+1);
+            //currCard->suit = val/13;
+            //currCard->rank = val%13+1;
+            Game::Manager::state.column[i%Constants::COLUMNS][i/Constants::COLUMNS] = currCard;
+        }
     }
 
     bool Manager::TryMove(Move * move)
     {
-
+        return false;
     }
 
     void Manager::Undo(const int ammount)
