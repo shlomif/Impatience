@@ -34,11 +34,8 @@ namespace Game
     public:
         Card* column[Constants::COLUMNS][Constants::CARDS/4];
         Card* foundation[Constants::FOUNDATIONS][Constants::CARDS/4];
-<<<<<<< HEAD
         Card* freecell[Constants::FREECELLS];
-=======
-        Card* freecell[Constants::FREECELLS][Constants::CARDS];
->>>>>>> 89046e92888fc0418b355e8b140bfdb224f5456b
+        //Card* freecell[Constants::FREECELLS][Constants::CARDS];
 
         State();
     };

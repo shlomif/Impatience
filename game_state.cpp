@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 Ivan Rubinson
+/* Copyright (c) 2012 Ivan Rubinson, Nitin Reddy Katkam
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -39,7 +39,8 @@ namespace Game
                 this->foundation[i][j] = NULL;
 
         for(i = 0; i < Constants::FREECELLS; i++)
-            for(j = 0; j < Constants::CARDS/4; j++)
-                this->freecell[i][j] = NULL;
+            //for(j = 0; j < Constants::CARDS/4; j++)
+                this->freecell[i] = NULL;
+                //this->freecell[i][j] = NULL;
     }
 }
