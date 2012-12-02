@@ -35,9 +35,22 @@ namespace Game
         return this->rank;
     }
 
+    void Card::SetSuit(const char suit)
+    {
+        this->suit = suit;
+    }
+
+    int Card::SetRank(const int rank)
+    {
+        this->rank = rank;
+    }
+
     Card::Card(const char suit, const int rank)
     {
         this->suit      = suit;
         this->rank      = rank;
+        this->location  = 0;
+        this->column    = 0;
+        this->row       = 0;
     }
 }

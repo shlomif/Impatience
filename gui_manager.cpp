@@ -22,6 +22,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "gui_manager.h"
+#include "game_manager.h"
 
 namespace GUI
 {
@@ -52,8 +53,6 @@ namespace GUI
 
     void Manager::Update() // ASSIGNED: Ivan
     {
-        SDL_Rect rect;
-
         Manager::columns.x = Manager::spacing*2;
         Manager::columns.y = window->h/3;
         Manager::columns.w = window->w - Manager::spacing*2*2;
@@ -68,11 +67,15 @@ namespace GUI
         Manager::freecells.h = window->h/3 - Manager::spacing*2*2;
 
         /* GRAPHICS: */
-
         SDL_FillRect(Manager::window, NULL, 0); // Clear the window of colours
 
         SDL_BlitSurface(Manager::window_background, NULL, Manager::window, NULL);
-        // TODO: Render cards
+
+        Game::Card * * cards = Game::Manager::GetCards();
+        for(int i = 0; cards[i] != NULL; i++)
+        {
+            // TODO: Render the card
+        }
 
         SDL_Flip(Manager::window);
     }

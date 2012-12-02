@@ -44,6 +44,7 @@ namespace Game
                                      // False otherwise. If the move is valid, it also executes the move.
         static void Undo(const int = 1); // Undoes an ammount of moves specified by its parameter.
         static void Redo(const int = 1); // Redoes an ammount of moves specified by its parameter.
+        static Card * * GetCards(); // Returns a null terminated array of pointers to all the cards in state.
     };
 }
 

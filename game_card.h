@@ -33,8 +33,14 @@ namespace Game
         int  rank;
 
     public:
+        int  location; // Is the card in a column, foundation or in a freecell?
+        int  column;   // Which column in location the card is in.
+        int  row;      // Which row in location the card is in.
+
         int  GetSuit();
         int  GetRank();
+        void SetSuit(const char);
+        int  SetRank(const int);
 
         Card(const char = 0, const int = 0);
     };

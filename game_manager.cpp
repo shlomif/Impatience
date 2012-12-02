@@ -157,6 +157,15 @@ namespace Game
 
     void Manager::Redo(const int ammount)
     {
-        // TODO: TryMove an ammount of moves from last_undos[], add them to last_moves and remove them from last_undos[]
+        // TODO: TryMove() an ammount of moves from last_undos[], add them to last_moves and remove them from last_undos[]
+    }
+
+    Card * * Manager::GetCards()
+    {
+        // TODO: Create a null-terminated array of pointers to all the cards in Manager::state.
+        //       Make sure there are no nulls in the middle, if there are - strip them away.
+        //       Return it.
+        // Important: Make sure it lives outside the function!
+        return NULL;
     }
 }
