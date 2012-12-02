@@ -21,10 +21,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-#include <SDL/SDL.h>
 #include "gui_manager.h"
-
-SDL_Surface* window;
 
 namespace GUI
 {
@@ -34,15 +31,16 @@ namespace GUI
     Area Manager::freecells;
     int  Manager::spacing;
 
-    Game::Card * Manager::snapped_card;
+    SDL_Surface * Manager::window;
+    Game::Card  * Manager::snapped_card;
 
     void Manager::Load()
     {
         Manager::window_is_open = true;
         Manager::spacing        = 8;
 
-        window = SDL_SetVideoMode(852, 480, 0, SDL_SWSURFACE);
-        if(window == NULL)
+        Manager::window = SDL_SetVideoMode(852, 480, 0, SDL_SWSURFACE);
+        if(Manager::window == NULL)
         {
             fprintf(stderr, SDL_GetError());
             exit(1);
@@ -68,27 +66,27 @@ namespace GUI
 
         /* GRAPHICS: */
 
-        SDL_FillRect(window, NULL, 0); // Clear the window of colours
+        SDL_FillRect(Manager::window, NULL, 0); // Clear the window of colours
 
         rect.x = Manager::columns.x;
         rect.y = Manager::columns.y;
         rect.w = Manager::columns.w;
         rect.h = Manager::columns.h;
-        SDL_FillRect(window, &rect, SDL_MapRGB(window->format, 255, 0, 0));
+        SDL_FillRect(Manager::window, &rect, SDL_MapRGB(Manager::window->format, 255, 0, 0));
 
         rect.x = Manager::foundations.x;
         rect.y = Manager::foundations.y;
         rect.w = Manager::foundations.w;
         rect.h = Manager::foundations.h;
-        SDL_FillRect(window, &rect, SDL_MapRGB(window->format, 0, 255, 0));
+        SDL_FillRect(Manager::window, &rect, SDL_MapRGB(Manager::window->format, 0, 255, 0));
 
         rect.x = Manager::freecells.x;
         rect.y = Manager::freecells.y;
         rect.w = Manager::freecells.w;
         rect.h = Manager::freecells.h;
-        SDL_FillRect(window, &rect, SDL_MapRGB(window->format, 0, 0, 255));
+        SDL_FillRect(Manager::window, &rect, SDL_MapRGB(Manager::window->format, 0, 0, 255));
 
-        SDL_Flip(window);
+        SDL_Flip(Manager::window);
     }
 
     Game::Card * Manager::GetCardAt(const int x, const int y)

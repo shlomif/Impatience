@@ -26,6 +26,7 @@
 
 #include "game_card.h"
 #include "gui_area.h"
+#include <SDL/SDL.h>
 
 namespace GUI
 {
@@ -38,7 +39,8 @@ namespace GUI
         static Area freecells;
         static int  spacing;
 
-        static Game::Card * snapped_card;
+        static SDL_Surface * window;
+        static Game::Card  * snapped_card;
 
     public:
         static void Load();

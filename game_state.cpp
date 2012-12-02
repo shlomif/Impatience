@@ -22,6 +22,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "game_state.h"
+#include <cstdlib>
 
 namespace Game
 {
