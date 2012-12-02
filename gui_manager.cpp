@@ -71,6 +71,7 @@ namespace GUI
 
         SDL_BlitSurface(Manager::window_background, NULL, Manager::window, NULL);
 
+#if 0 // The following code generates a segfault in it's current state. Please fix!
         Game::Card * * cards = Game::Manager::GetCards();
         for(int i = 0; cards[i] != NULL; i++)
         {
@@ -79,6 +80,7 @@ namespace GUI
 
         SDL_Flip(Manager::window);
     }
+#endif
 
     Game::Card * Manager::GetCardAt(const int x, const int y)
     {
