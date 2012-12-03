@@ -30,7 +30,7 @@ int main(int argc, char * argv[])
 {
     if(SDL_Init(SDL_INIT_EVERYTHING) == -1)
     {
-        fprintf(stderr, "%s", SDL_GetError());
+        fprintf(stderr, "%s\n", SDL_GetError());
         return 1;
     }
     atexit(SDL_Quit);

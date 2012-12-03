@@ -44,7 +44,7 @@ namespace GUI
         Manager::window = SDL_SetVideoMode(852, 480, 0, SDL_RESIZABLE);
         if(Manager::window == NULL)
         {
-            fprintf(stderr, "%s", SDL_GetError());
+            fprintf(stderr, "%s\n", SDL_GetError());
             exit(1);
         }
 
@@ -55,12 +55,12 @@ namespace GUI
             for(int r = 0; r < Constants::CARDRANKS_EOF; r++)
             {
                 char path[16];
-                sprintf(path, "assets/%1d %2d.bmp", s, r);
+                sprintf(path, "assets/%1d %2d.bmp", s+1, r+1);
 
                 Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] = SDL_LoadBMP(path);
                 if(Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] == NULL)
                 {
-                    fprintf(stderr, "%s", SDL_GetError());
+                    fprintf(stderr, "%s\n", SDL_GetError());
                 }
             }
         }
