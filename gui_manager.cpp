@@ -79,8 +79,8 @@ namespace GUI
         }
 
         SDL_Flip(Manager::window);
-    }
 #endif
+    }
 
     Game::Card * Manager::GetCardAt(const int x, const int y)
     {
