@@ -26,17 +26,12 @@
 
 namespace Constants
 {
-    const int CARDS       = 52;
-    const int COLUMNS     = 8;
-    const int FOUNDATIONS = 4;
-    const int FREECELLS   = 4;
-
     enum CARDSUITS
     {
-        CARDSUITS_HEART = 'H',
-        CARDSUITS_CLUB = 'C',
-        CARDSUITS_DIAMOND = 'D',
-        CARDSUITS_SPADE = 'S',
+        CARDSUITS_HEART,
+        CARDSUITS_CLUB,
+        CARDSUITS_DIAMOND,
+        CARDSUITS_SPADE,
         CARDSUITS_EOF
     };
 
@@ -56,6 +51,11 @@ namespace Constants
         CARDRANKS_KING,
         CARDRANKS_EOF
     };
+
+    const int CARDS       = CARDSUITS_EOF * CARDRANKS_EOF;
+    const int COLUMNS     = 8;
+    const int FOUNDATIONS = 4;
+    const int FREECELLS   = 4;
 }
 
 #endif

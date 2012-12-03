@@ -26,6 +26,7 @@
 
 #include "game_card.h"
 #include "gui_area.h"
+#include "freecell.h"
 #include <SDL/SDL.h>
 
 namespace GUI
@@ -38,10 +39,10 @@ namespace GUI
         static Area foundations;
         static Area freecells;
         static int  spacing;
-
         static SDL_Surface * window;
         static SDL_Surface * window_background;
         static Game::Card  * snapped_card;
+        static SDL_Surface * card_graphic[Constants::CARDS];
 
         static void SetBackground(const char*); // Sets the windows background to the file located at the path specified by the parameter.
 

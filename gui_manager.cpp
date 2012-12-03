@@ -31,24 +31,39 @@ namespace GUI
     Area Manager::foundations;
     Area Manager::freecells;
     int  Manager::spacing;
-
     SDL_Surface * Manager::window;
     SDL_Surface * Manager::window_background;
     Game::Card  * Manager::snapped_card;
+    SDL_Surface * Manager::card_graphic[];
 
     void Manager::Load()
     {
         Manager::window_is_open = true;
         Manager::spacing        = 8;
 
-        Manager::window = SDL_SetVideoMode(852, 480, 0, SDL_SWSURFACE);
+        Manager::window = SDL_SetVideoMode(852, 480, 0, SDL_RESIZABLE);
         if(Manager::window == NULL)
         {
             fprintf(stderr, "%s", SDL_GetError());
             exit(1);
         }
 
-        Manager::SetBackground("bg.bmp");
+        Manager::SetBackground("assets/bg.bmp");
+
+        for(int s = 0; s < Constants::CARDSUITS_EOF; s++)
+        {
+            for(int r = 0; r < Constants::CARDRANKS_EOF; r++)
+            {
+                char path[17];
+                sprintf(path, "assets/%2d %2d.bmp", s, r);
+
+                Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] = SDL_LoadBMP(path);
+                if(Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] == NULL)
+                {
+                    fprintf(stderr, "%s", SDL_GetError());
+                }
+            }
+        }
     }
 
     void Manager::Update() // ASSIGNED: Ivan
@@ -149,6 +164,11 @@ namespace GUI
         if(event.type == SDL_QUIT)
         {
             Manager::window_is_open = false;
+            return true;
+        }
+        else if(event.type == SDL_VIDEORESIZE)
+        {
+            Manager::window = SDL_SetVideoMode(event.resize.w, event.resize.h, 0, SDL_RESIZABLE);
             return true;
         }
 
