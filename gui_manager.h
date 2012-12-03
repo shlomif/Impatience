@@ -52,7 +52,7 @@ namespace GUI
         static int GetColumnAt(const int, const int); // Returns in which column the x/y specified by its parameters are. Not a column as a zone, but a column inside a zone.
         static void SnapToCursor(Game::Card*); // Attaches the card specified by its parameter to the cursor. The card will follow the cursor.
         static bool WindowIsOpen(); // Returns false if the window is closed. True otherwise.
-        static void Close(); // Tells the manager to close the window. The closing isn't done immediately.
+        static bool HandleEvents(const SDL_Event); // Gets an SDL event and processes it. Returns true if the event is relevant to the manager, false otherwise.
     };
 }
 

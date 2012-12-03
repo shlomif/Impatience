@@ -135,11 +135,6 @@ namespace GUI
         return Manager::window_is_open;
     }
 
-    void Manager::Close()
-    {
-        Manager::window_is_open = false;
-    }
-
     void Manager::SetBackground(const char* path)
     {
         Manager::window_background = SDL_LoadBMP(path);
@@ -147,5 +142,16 @@ namespace GUI
         {
             fprintf(stderr, "%s", SDL_GetError());
         }
+    }
+
+    bool Manager::HandleEvents(const SDL_Event event)
+    {
+        if(event.type == SDL_QUIT)
+        {
+            Manager::window_is_open = false;
+            return true;
+        }
+
+        return false;
     }
 }

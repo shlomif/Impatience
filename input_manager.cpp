@@ -36,16 +36,12 @@ namespace Input
 
     void Manager::Update()
     {
-        SDL_Event Event;
-        while(SDL_PollEvent(&Event)) // There are events to handle
+        SDL_Event event;
+        while(SDL_PollEvent(&event)) // There are events to handle
         {
-            if(Event.type != SDL_QUIT)
+            if(GUI::Manager::HandleEvents(event) == false)
             {
                 // TODO: Handle events
-            }
-            else // Event.type == SDL_QUIT
-            {
-                GUI::Manager::Close();
             }
         }
     }
