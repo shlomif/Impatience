@@ -54,8 +54,8 @@ namespace GUI
         {
             for(int r = 0; r < Constants::CARDRANKS_EOF; r++)
             {
-                char path[16];
-                sprintf(path, "assets/%1d %2d.bmp", s+1, r+1);
+                char path[200];
+                sprintf(path, "assets/%1d_%02d.bmp", s+1, r+1);
 
                 Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] = SDL_LoadBMP(path);
                 if(Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] == NULL)
