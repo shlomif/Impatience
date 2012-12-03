@@ -71,15 +71,45 @@ namespace GUI
 
         SDL_BlitSurface(Manager::window_background, NULL, Manager::window, NULL);
 
-#if 0 // The following code generates a segfault in it's current state. Please fix!
-        Game::Card * * cards = Game::Manager::GetCards();
-        for(int i = 0; cards[i] != NULL; i++)
+        Game::State* state = Game::Manager::GetState();
+        if(state != NULL)
         {
-            // TODO: Render the card
+            for(int i = 0; i < Constants::COLUMNS; i++)
+            {
+                for(int j = 0; j < Constants::CARDS/4; j++)
+                {
+                    if(state->column[i][j] != NULL)
+                    {
+                        // TODO: Render card
+                    }
+                }
+            }
+
+            for(int i = 0; i < Constants::FOUNDATIONS; i++)
+            {
+                for(int j = 0; j < Constants::CARDS/4; j++)
+                {
+                    if(state->foundation[i][j] != NULL)
+                    {
+                        // TODO: Render card
+                    }
+                }
+            }
+
+            for(int i = 0; i < Constants::FREECELLS; i++)
+            {
+                if(state->freecell[i] != NULL)
+                {
+                    // TODO: Render card
+                }
+            }
+        }
+        else // state == NULL
+        {
+            fprintf(stderr, "Game state is uninitialised.");
         }
 
         SDL_Flip(Manager::window);
-#endif
     }
 
     Game::Card * Manager::GetCardAt(const int x, const int y)

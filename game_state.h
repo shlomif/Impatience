@@ -35,7 +35,6 @@ namespace Game
         Card* column[Constants::COLUMNS][Constants::CARDS/4];
         Card* foundation[Constants::FOUNDATIONS][Constants::CARDS/4];
         Card* freecell[Constants::FREECELLS];
-        //Card* freecell[Constants::FREECELLS][Constants::CARDS];
 
         State();
     };
