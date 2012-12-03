@@ -48,7 +48,10 @@ namespace Game
         //init clear freecells ptrs
         for (i=0; i<Constants::FREECELLS; i++)
         {
-            Game::Manager::state.freecell[i] = NULL;
+            for(j=0; j<Constants::CARDS/Constants::FREECELLS; j++)
+            {
+                Game::Manager::state.freecell[i][j] = NULL;
+            }
         }
 
         //init foundation ptrs
@@ -111,10 +114,13 @@ namespace Game
         //clear freecells
         for (i=0; i<Constants::FREECELLS; i++)
         {
-            if (Game::Manager::state.freecell[i] != NULL)
+            for(j=0; j<Constants::CARDS/Constants::FREECELLS; j++)
             {
-                delete Game::Manager::state.freecell[i];
-                Game::Manager::state.freecell[i] = NULL;
+                if (Game::Manager::state.freecell[i][j] != NULL)
+                {
+                    delete Game::Manager::state.freecell[i];
+                    Game::Manager::state.freecell[i][j] = NULL;
+                }
             }
         }
 

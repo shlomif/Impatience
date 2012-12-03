@@ -48,7 +48,10 @@ namespace Game
 
         for(i = 0; i < Constants::FREECELLS; i++)
         {
-            this->freecell[i] = NULL;
+            for(j = 0; j < Constants::CARDS / Constants::FREECELLS; j++)
+            {
+                this->freecell[i][j] = NULL;
+            }
         }
     }
 }

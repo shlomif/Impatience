@@ -49,8 +49,5 @@ namespace Game
     {
         this->suit      = suit;
         this->rank      = rank;
-        this->location  = 0;
-        this->column    = 0;
-        this->row       = 0;
     }
 }

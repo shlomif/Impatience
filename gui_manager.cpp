@@ -54,8 +54,8 @@ namespace GUI
         {
             for(int r = 0; r < Constants::CARDRANKS_EOF; r++)
             {
-                char path[17];
-                sprintf(path, "assets/%2d %2d.bmp", s, r);
+                char path[16];
+                sprintf(path, "assets/%1d %2d.bmp", s, r);
 
                 Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] = SDL_LoadBMP(path);
                 if(Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] == NULL)
@@ -84,8 +84,13 @@ namespace GUI
         /* GRAPHICS: */
         SDL_FillRect(Manager::window, NULL, 0); // Clear the window of colours
 
-        SDL_BlitSurface(Manager::window_background, NULL, Manager::window, NULL);
+        // Render background:
+        if(Manager::window_background != NULL)
+        {
+            SDL_BlitSurface(Manager::window_background, NULL, Manager::window, NULL);
+        }
 
+        // Render cards:
         Game::State* state = Game::Manager::GetState();
         if(state != NULL)
         {
@@ -93,7 +98,7 @@ namespace GUI
             {
                 for(int j = 0; j < Constants::CARDS/4; j++)
                 {
-                    if(state->column[i][j] != NULL)
+                    if(state->column[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
                     {
                         // TODO: Render card
                     }
@@ -104,7 +109,7 @@ namespace GUI
             {
                 for(int j = 0; j < Constants::CARDS/4; j++)
                 {
-                    if(state->foundation[i][j] != NULL)
+                    if(state->foundation[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
                     {
                         // TODO: Render card
                     }
@@ -113,15 +118,38 @@ namespace GUI
 
             for(int i = 0; i < Constants::FREECELLS; i++)
             {
-                if(state->freecell[i] != NULL)
+                for(int j = 0; j < Constants::CARDS / Constants::FREECELLS; j++)
                 {
-                    // TODO: Render card
+                    if(state->freecell[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
+                    {
+                        // TODO: Render card
+                    }
                 }
             }
         }
         else // state == NULL
         {
-            fprintf(stderr, "Game state is uninitialised.");
+            static int errcount = 1;
+            if(errcount <= 3)
+            {
+                fprintf(stderr, "Game state is uninitialised x%d.\n", errcount);
+                errcount++;
+            }
+            else // errcount > 3
+            {
+                fprintf(stderr, "Stopped saying Game state is uninitialised.\n");
+            }
+        }
+
+        // Render snapped card:
+        if(Manager::snapped_card != NULL)
+        {
+            int x, y;
+            SDL_GetMouseState(&x, &y);
+            SDL_Rect r;
+            r.x = x;
+            r.y = y;
+            SDL_BlitSurface(Manager::window, &r, Manager::card_graphic[(Manager::snapped_card->GetSuit() * Constants::CARDRANKS_EOF) + Manager::snapped_card->GetRank()], NULL);
         }
 
         SDL_Flip(Manager::window);
@@ -143,6 +171,11 @@ namespace GUI
     void Manager::SnapToCursor(Game::Card * to_snap)
     {
         Manager::snapped_card = to_snap;
+    }
+
+    void Manager::UnsnapFromCursor()
+    {
+        Manager::snapped_card = NULL;
     }
 
     bool Manager::WindowIsOpen()

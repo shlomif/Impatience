@@ -32,9 +32,9 @@ namespace Game
     class State
     {
     public:
-        Card* column[Constants::COLUMNS][Constants::CARDS/4];
-        Card* foundation[Constants::FOUNDATIONS][Constants::CARDS/4];
-        Card* freecell[Constants::FREECELLS];
+        Card* column[Constants::COLUMNS][Constants::CARDS / 4];
+        Card* foundation[Constants::FOUNDATIONS][Constants::CARDS / 4];
+        Card* freecell[Constants::FREECELLS][Constants::CARDS / Constants::FREECELLS];
 
         State();
     };
