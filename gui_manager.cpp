@@ -149,7 +149,7 @@ namespace GUI
             SDL_Rect r;
             r.x = x;
             r.y = y;
-            SDL_BlitSurface(Manager::window, &r, Manager::card_graphic[(Manager::snapped_card->GetSuit() * Constants::CARDRANKS_EOF) + Manager::snapped_card->GetRank()], NULL);
+            SDL_BlitSurface(Manager::card_graphic[(Manager::snapped_card->GetSuit() * Constants::CARDRANKS_EOF) + Manager::snapped_card->GetRank()], NULL, Manager::window, &r);
         }
 
         SDL_Flip(Manager::window);
@@ -192,7 +192,7 @@ namespace GUI
         loc.x = (loc.w * col) + (spacing * col);
         loc.y = (loc.h * row) + (spacing * row);
 
-        SDL_BlitSurface(Manager::window, &loc, Manager::card_graphic[(card->GetSuit() * Constants::CARDRANKS_EOF) + card->GetRank()], NULL);
+        SDL_BlitSurface(Manager::card_graphic[(card->GetSuit() * Constants::CARDRANKS_EOF) + card->GetRank()], NULL, Manager::window, &loc);
     }
 
     Game::Card * Manager::GetCardAt(const int x, const int y)
