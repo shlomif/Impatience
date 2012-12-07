@@ -32,8 +32,10 @@ namespace Game
     {
     public:
         Card * card;
-        int    type;
-        int    place;
+        int    fzone;
+        int    tzone;
+        int    fcol;
+        int    tcol;
 
         Move();
     };

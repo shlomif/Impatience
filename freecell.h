@@ -53,9 +53,9 @@ namespace Constants
     };
 
     const int CARDS       = CARDSUITS_EOF * CARDRANKS_EOF;
-    const int COLUMNS     = 8;
     const int FOUNDATIONS = 4;
     const int FREECELLS   = 4;
+    const int COLUMNS     = 8;
 }
 
 #endif

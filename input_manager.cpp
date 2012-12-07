@@ -23,11 +23,16 @@
  */
 #include <SDL/SDL.h>
 #include "input_manager.h"
+#include "game_card.h"
+#include "game_manager.h"
+#include "game_move.h"
 #include "gui_manager.h"
 
 namespace Input
 {
-    Game::Card * Manager::selected_card;
+    Game::Card * Manager::selected_card = NULL;
+    int Manager::selection_x = 0;
+    int Manager::selection_y = 0;
 
     void Manager::Load()
     {
@@ -41,7 +46,91 @@ namespace Input
         {
             if(GUI::Manager::HandleEvents(event) == false)
             {
-                // TODO: Handle events
+                enum CONTROLTYPES
+                {
+                    NO_CONTROL,
+                    POINT_AND_CLICK,
+                    DRAG_AND_DROP
+                };
+                static int control = NO_CONTROL;
+                bool controlled = false;
+
+                if(control == NO_CONTROL)
+                {
+                    static int count = 0;
+
+                    if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT)
+                    {
+                        count++;
+                    }
+
+                    if(event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT)
+                    {
+                        control = POINT_AND_CLICK;
+                        count = 0;
+                    }
+                    else if(count > 12)
+                    {
+                        control = DRAG_AND_DROP;
+                        count = 0;
+                    }
+
+                    if(control != NO_CONTROL)
+                    {
+                        Manager::selected_card = GUI::Manager::GetCardAt(event.motion.x, event.motion.y);
+                        if(Manager::selected_card != NULL)
+                        {
+                            GUI::Manager::SnapToCursor(Manager::selected_card);
+                            Manager::selection_x = event.motion.x;
+                            Manager::selection_y = event.motion.y;
+                        }
+                    }
+                }
+                else // Card is a card selected
+                {
+                    switch(control)
+                    {
+                        case(POINT_AND_CLICK):
+                        {
+                            if(event.type == SDL_MOUSEBUTTONDOWN)
+                            {
+                                controlled = true;
+                            }
+                            break;
+                        }
+                        case(DRAG_AND_DROP):
+                        {
+                            if(event.type == SDL_MOUSEBUTTONUP)
+                            {
+                                controlled = true;
+                            }
+                            break;
+                        }
+                    }
+
+                    if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_RIGHT)
+                    {
+                        GUI::Manager::UnsnapFromCursor();
+                        Manager::selected_card = NULL;
+                        control = NO_CONTROL;
+                    }
+
+                    if(controlled)
+                    {
+                        Game::Move * m = new Game::Move();
+                        m->card  = Manager::selected_card;
+                        m->fzone = GUI::Manager::GetZoneAt(Manager::selection_x, Manager::selection_y);
+                        m->tzone = GUI::Manager::GetZoneAt(event.motion.x, event.motion.y);
+                        m->fcol  = GUI::Manager::GetColumnAt(Manager::selection_x, Manager::selection_y);
+                        m->tcol  = GUI::Manager::GetColumnAt(event.motion.x, event.motion.y);
+                        if(Game::Manager::TryMove(m) || control == DRAG_AND_DROP)
+                        {
+                            GUI::Manager::UnsnapFromCursor();
+                            Manager::selected_card = NULL;
+                            control = NO_CONTROL;
+                        }
+                    }
+                }
             }
         }
     }

@@ -32,6 +32,8 @@ namespace Input
     {
     private:
         static Game::Card * selected_card;
+        static int selection_x;
+        static int selection_y;
 
     public:
         static void Load();

@@ -29,7 +29,9 @@ namespace Game
     Move::Move()
     {
         this->card  = NULL;
-        this->type  = 0;
-        this->place = 0;
+        this->fzone = -1;
+        this->tzone = -1;
+        this->fcol  = -1;
+        this->tcol  = -1;
     }
 }

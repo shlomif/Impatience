@@ -35,9 +35,9 @@ namespace GUI
     {
     private:
         static bool window_is_open;
-        static Area columns;
         static Area foundations;
         static Area freecells;
+        static Area columns;
         static int  spacing;
         static SDL_Surface * window;
         static SDL_Surface * window_background;
@@ -45,12 +45,14 @@ namespace GUI
         static SDL_Surface * card_graphic[Constants::CARDS];
 
         static void SetBackground(const char*); // Sets the windows background to the file located at the path specified by the parameter.
+        static void RenderCard(const int, const int, const int, Game::Card *); // Renders the card located at 1st, row=2nd, col=3rd.
 
     public:
         static void Load();
         static void Update();
         static Game::Card * GetCardAt(const int, const int); // Returns a pointer to the card at the x/y specified by its parameters.
-        static int GetColumnAt(const int, const int); // Returns in which column the x/y specified by its parameters are. Not a column as a zone, but a column inside a zone.
+        static int GetZoneAt(const int, const int); // Returns in which zone the x/y specified by its parameters are. Zone can be 0 for foundations, 1 for freecells, 2 for columns. Returns -1 if none.
+        static int GetColumnAt(const int, const int); // Returns in which column the x/y specified by its parameters are. Not a column as a zone, but a column inside a zone. Returns -1 if none.
         static void SnapToCursor(Game::Card*); // Attaches the card specified by its parameter to the cursor. The card will follow the cursor.
         static void UnsnapFromCursor(); // Unattaches the card currently attached to the cursor.
         static bool WindowIsOpen(); // Returns false if the window is closed. True otherwise.

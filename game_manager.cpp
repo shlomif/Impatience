@@ -34,36 +34,7 @@ namespace Game
 
     void Manager::Load()
     {
-        int i, j;
-
-        //init column pointers
-        for(i=0; i<Constants::COLUMNS; i++)
-        {
-            for(j=0; j<Constants::CARDS/4; j++)
-            {
-                Game::Manager::state.column[i][j] = NULL;
-            }
-        }
-
-        //init clear freecells ptrs
-        for (i=0; i<Constants::FREECELLS; i++)
-        {
-            for(j=0; j<Constants::CARDS/Constants::FREECELLS; j++)
-            {
-                Game::Manager::state.freecell[i][j] = NULL;
-            }
-        }
-
-        //init foundation ptrs
-        for (i=0; i<Constants::FOUNDATIONS; i++)
-        {
-            for (j=0; j<Constants::CARDS/4; j++)
-            {
-                Game::Manager::state.foundation[i][j] = NULL;
-            }
-        }
-
-        Shuffle();
+        Manager::Shuffle();
     }
 
     void Manager::Update()

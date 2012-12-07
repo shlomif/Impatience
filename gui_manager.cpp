@@ -54,8 +54,8 @@ namespace GUI
         {
             for(int r = 0; r < Constants::CARDRANKS_EOF; r++)
             {
-                char path[200];
-                sprintf(path, "assets/%1d_%02d.bmp", s+1, r+1);
+                char path[16];
+                snprintf(path, 16, "assets/%1d_%02d.bmp", s+1, r+1);
 
                 Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] = SDL_LoadBMP(path);
                 if(Manager::card_graphic[(s * Constants::CARDRANKS_EOF) + r] == NULL)
@@ -94,24 +94,13 @@ namespace GUI
         Game::State* state = Game::Manager::GetState();
         if(state != NULL)
         {
-            for(int i = 0; i < Constants::COLUMNS; i++)
-            {
-                for(int j = 0; j < Constants::CARDS/4; j++)
-                {
-                    if(state->column[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
-                    {
-                        // TODO: Render card
-                    }
-                }
-            }
-
             for(int i = 0; i < Constants::FOUNDATIONS; i++)
             {
                 for(int j = 0; j < Constants::CARDS/4; j++)
                 {
                     if(state->foundation[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
                     {
-                        // TODO: Render card
+                        Manager::RenderCard(0, i, j, state->foundation[i][j]);
                     }
                 }
             }
@@ -122,7 +111,18 @@ namespace GUI
                 {
                     if(state->freecell[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
                     {
-                        // TODO: Render card
+                        Manager::RenderCard(1, i, j, state->freecell[i][j]);
+                    }
+                }
+            }
+
+            for(int i = 0; i < Constants::COLUMNS; i++)
+            {
+                for(int j = 0; j < Constants::CARDS/4; j++)
+                {
+                    if(state->column[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
+                    {
+                        Manager::RenderCard(2, i, j, state->column[i][j]);
                     }
                 }
             }
@@ -155,16 +155,61 @@ namespace GUI
         SDL_Flip(Manager::window);
     }
 
+    void Manager::RenderCard(const int type, const int row, const int col, Game::Card * card)
+    {
+        if(card == NULL)
+        {
+            fprintf(stderr, "RenderCard(...) got an invalid card (arg #4): %x\n", card);
+            return;
+        }
+
+        SDL_Rect loc;
+        switch(type)
+        {
+            case(0): // foundation
+            {
+                loc.w = (Manager::foundations.w - (Manager::spacing * (Constants::FOUNDATIONS-2))) / Constants::FOUNDATIONS;
+                loc.h = (Manager::foundations.h - (Manager::spacing * (Constants::CARDS/4)))       / (Constants::CARDS/4);
+                break;
+            }
+            case(1): // freecell
+            {
+                loc.w = (Manager::freecells.w - (Manager::spacing * (Constants::FREECELLS-2))) / Constants::FREECELLS;
+                loc.h = (Manager::freecells.h - (Manager::spacing * (Constants::CARDS/4)))     / (Constants::CARDS/4);
+                break;
+            }
+            case(2): // column
+            {
+                loc.w = (Manager::columns.w - (Manager::spacing * (Constants::COLUMNS-2))) / Constants::COLUMNS;
+                loc.h = (Manager::columns.h - (Manager::spacing * (Constants::CARDS/4)))   / (Constants::CARDS/4);
+                break;
+            }
+            default:
+            fprintf(stderr, "RenderCard(...) got an invalid type (arg #1): %d\n", type);
+            return;
+        }
+
+        loc.x = (loc.w * col) + (spacing * col);
+        loc.y = (loc.h * row) + (spacing * row);
+
+        SDL_BlitSurface(Manager::window, &loc, Manager::card_graphic[(card->GetSuit() * Constants::CARDRANKS_EOF) + card->GetRank()], NULL);
+    }
+
     Game::Card * Manager::GetCardAt(const int x, const int y)
     {
         // TODO: Figure out which card is at x/y, return a pointer to it
         return NULL;
     }
 
+    int Manager::GetZoneAt(const int x, const int y)
+    {
+        // TODO: Figure out which zone type (column/foundation/freecell) are the x/y in, and return it.
+        return -1;
+    }
+
     int Manager::GetColumnAt(const int x, const int y)
     {
-        // TODO: Figure out which zone type (column/foundation/freecell) are the x/y in.
-        //       Figure out which column in this zone the x/y are, and return it.
+        // TODO: Figure out which column in GetZoneAt(x, y) the x/y are, and return it.
         return -1;
     }
 
