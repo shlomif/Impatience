@@ -98,7 +98,7 @@ namespace GUI
             {
                 for(int j = 0; j < Constants::CARDS/4; j++)
                 {
-                    if(state->foundation[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
+                    if(state->foundation[i][j] != NULL && state->foundation[i][j] != Manager::snapped_card)
                     {
                         Manager::RenderCard(0, i, j, state->foundation[i][j]);
                     }
@@ -109,7 +109,7 @@ namespace GUI
             {
                 for(int j = 0; j < Constants::CARDS / Constants::FREECELLS; j++)
                 {
-                    if(state->freecell[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
+                    if(state->freecell[i][j] != NULL && state->freecell[i][j] != Manager::snapped_card)
                     {
                         Manager::RenderCard(1, i, j, state->freecell[i][j]);
                     }
