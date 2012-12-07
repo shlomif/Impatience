@@ -3,9 +3,9 @@ Impatience
 
 > ##Written by:
 >
+> > Shlomi Fish
+> > 
 > > Ivan Rubinson
-> >
-> > Nitin Reddy
 > >
 > ##Managed by:
 >
