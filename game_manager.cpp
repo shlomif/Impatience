@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 Ivan Rubinson, Nitin Reddy Katkam
+/* Copyright (c) 2012 Ivan Rubinson
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -22,9 +22,6 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "game_manager.h"
-#include <cstdlib>
-#include <ctime>
-#include <assert.h>
 
 namespace Game
 {
@@ -42,81 +39,9 @@ namespace Game
         // TODO: Write whatever the manager will do every main-loop iteration.
     }
 
-    void Manager::Shuffle() //ASSIGNED: Nitin
+    void Manager::Shuffle()
     {
-        int cards[Constants::CARDS];
-        int i, j, temp;
-        int val;
-
-        //pre-populate
-        for(i=0; i<Constants::CARDS; i++)
-        {
-            cards[i] = i;
-        }
-
-        //shuffle
-        for(j=0; j<Constants::CARDS; j++)
-        {
-            for (i=0; i<Constants::CARDS; i++)
-            {
-                srand(time(NULL));
-                if (rand()%2)
-                {
-                    temp = cards[i];
-                    cards[i] = cards[j];
-                    cards[j] = temp;
-                }
-            }
-        }
-
-        //clear columns
-        for(i=0; i<Constants::COLUMNS; i++)
-        {
-            for(j=0; j<Constants::CARDS/4; j++)
-            {
-                if (Game::Manager::state.column[i][j] != NULL)
-                {
-                    delete Game::Manager::state.column[i][j];
-                    Game::Manager::state.column[i][j] = NULL;
-                }
-            }
-        }
-
-        //clear freecells
-        for (i=0; i<Constants::FREECELLS; i++)
-        {
-            for(j=0; j<Constants::CARDS/Constants::FREECELLS; j++)
-            {
-                if (Game::Manager::state.freecell[i][j] != NULL)
-                {
-                    delete Game::Manager::state.freecell[i];
-                    Game::Manager::state.freecell[i][j] = NULL;
-                }
-            }
-        }
-
-        //clear foundation
-        for (i=0; i<Constants::FOUNDATIONS; i++)
-        {
-            for (j=0; j<Constants::CARDS/4; j++)
-            {
-                if (Game::Manager::state.foundation[i][j] != NULL)
-                {
-                    delete Game::Manager::state.foundation[i][j];
-                    Game::Manager::state.foundation[i][j] = NULL;
-                }
-            }
-        }
-
-        //build state
-        for (i=0; i<Constants::CARDS; i++)
-        {
-            val = cards[i];
-            Game::Card* currCard = new Game::Card((char)val/(Constants::CARDS/4), val%(Constants::CARDS/4)+1);
-            //currCard->suit = val/13;
-            //currCard->rank = val%13+1;
-            Game::Manager::state.column[i%Constants::COLUMNS][i/Constants::COLUMNS] = currCard;
-        }
+        // TODO: Delete all cards and shuffle them.
     }
 
     bool Manager::TryMove(Move * move)

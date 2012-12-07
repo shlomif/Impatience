@@ -28,29 +28,21 @@ namespace Game
 {
     State::State()
     {
-        int i, j;
-
-        for(i = 0; i < Constants::COLUMNS; i++)
+        for(int i = 0; i < Constants::FOUNDATIONS; i++)
         {
-            for(j = 0; j < Constants::CARDS/4; j++)
+            this->foundation[i] = NULL;
+        }
+
+        for(int i = 0; i < Constants::FREECELLS; i++)
+        {
+            this->freecell[i] = NULL;
+        }
+
+        for(int i = 0; i < Constants::COLUMNS; i++)
+        {
+            for(int j = 0; j < Constants::CARDS/Constants::COLUMNS; j++)
             {
                 this->column[i][j] = NULL;
-            }
-        }
-
-        for(i = 0; i < Constants::FOUNDATIONS; i++)
-        {
-            for(j = 0; j < Constants::CARDS/4/4; j++)
-            {
-                this->foundation[i][j] = NULL;
-            }
-        }
-
-        for(i = 0; i < Constants::FREECELLS; i++)
-        {
-            for(j = 0; j < Constants::CARDS / Constants::FREECELLS; j++)
-            {
-                this->freecell[i][j] = NULL;
             }
         }
     }

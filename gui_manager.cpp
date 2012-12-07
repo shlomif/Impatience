@@ -66,7 +66,7 @@ namespace GUI
         }
     }
 
-    void Manager::Update() // ASSIGNED: Ivan
+    void Manager::Update()
     {
         Manager::columns.x = Manager::spacing*2;
         Manager::columns.y = window->h/3;
@@ -96,33 +96,27 @@ namespace GUI
         {
             for(int i = 0; i < Constants::FOUNDATIONS; i++)
             {
-                for(int j = 0; j < Constants::CARDS/4; j++)
+                if(state->foundation[i] != NULL && state->foundation[i] != Manager::snapped_card)
                 {
-                    if(state->foundation[i][j] != NULL && state->foundation[i][j] != Manager::snapped_card)
-                    {
-                        Manager::RenderCard(0, i, j, state->foundation[i][j]);
-                    }
+                    Manager::RenderCard(0, i, 0, state->foundation[i]);
                 }
             }
 
             for(int i = 0; i < Constants::FREECELLS; i++)
             {
-                for(int j = 0; j < Constants::CARDS / Constants::FREECELLS; j++)
+                if(state->freecell[i] != NULL && state->freecell[i] != Manager::snapped_card)
                 {
-                    if(state->freecell[i][j] != NULL && state->freecell[i][j] != Manager::snapped_card)
-                    {
-                        Manager::RenderCard(1, i, j, state->freecell[i][j]);
-                    }
+                    Manager::RenderCard(1, i, 0, state->freecell[i]);
                 }
             }
 
             for(int i = 0; i < Constants::COLUMNS; i++)
             {
-                for(int j = 0; j < Constants::CARDS/4; j++)
+                for(int j = 0; j < Constants::CARDS/Constants::COLUMNS; j++)
                 {
                     if(state->column[i][j] != NULL && state->column[i][j] != Manager::snapped_card)
                     {
-                        Manager::RenderCard(2, i, j, state->column[i][j]);
+                        Manager::RenderCard(2, j, i, state->column[i][j]);
                     }
                 }
             }
@@ -168,20 +162,17 @@ namespace GUI
         {
             case(0): // foundation
             {
-                loc.w = (Manager::foundations.w - (Manager::spacing * (Constants::FOUNDATIONS-2))) / Constants::FOUNDATIONS;
-                loc.h = (Manager::foundations.h - (Manager::spacing * (Constants::CARDS/4)))       / (Constants::CARDS/4);
+
                 break;
             }
             case(1): // freecell
             {
-                loc.w = (Manager::freecells.w - (Manager::spacing * (Constants::FREECELLS-2))) / Constants::FREECELLS;
-                loc.h = (Manager::freecells.h - (Manager::spacing * (Constants::CARDS/4)))     / (Constants::CARDS/4);
+
                 break;
             }
             case(2): // column
             {
-                loc.w = (Manager::columns.w - (Manager::spacing * (Constants::COLUMNS-2))) / Constants::COLUMNS;
-                loc.h = (Manager::columns.h - (Manager::spacing * (Constants::CARDS/4)))   / (Constants::CARDS/4);
+
                 break;
             }
             default:
@@ -189,10 +180,8 @@ namespace GUI
             return;
         }
 
-        loc.x = (loc.w * col) + (spacing * col);
-        loc.y = (loc.h * row) + (spacing * row);
-
-        SDL_BlitSurface(Manager::card_graphic[(card->GetSuit() * Constants::CARDRANKS_EOF) + card->GetRank()], NULL, Manager::window, &loc);
+        SDL_FillRect(Manager::window, &loc, SDL_MapRGB(Manager::window->format, 255, 0, 255));
+        //SDL_BlitSurface(Manager::card_graphic[(card->GetSuit() * Constants::CARDRANKS_EOF) + card->GetRank()], NULL, Manager::window, &loc);
     }
 
     Game::Card * Manager::GetCardAt(const int x, const int y)
