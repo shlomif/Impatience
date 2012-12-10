@@ -100,13 +100,15 @@ my ($tween_1, $tween_3);
 # here we show how to use both to achieve the same effect
 
 $tween_1 = $tweener->tween_path(
-    t    => 3_000,
+    t    => 6_000,
     to   => [320, 100],
     on   => {xy => $sprite},
-    ease => 'p4_in_out',
-    done => sub { $tween_3->start(shift) },
+    # ease => 'p4_in_out',
+    # done => sub { $tween_3->start(shift) },
 );
 
+if (0)
+{
 $tween_3 = $tweener->tween_path(
     t    => 3_000,
     on   => {xy => $sprite},
@@ -119,7 +121,7 @@ $tween_3 = $tweener->tween_path(
         to     => pip2,
     }],
 );
-
+}
 $app->add_show_handler(sub {
     $app->draw_rect(undef, 0xFFFFFFFF);
     $sprite->paint($app);
