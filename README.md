@@ -4,7 +4,7 @@ Impatience
 > ##Written by:
 >
 > > Shlomi Fish
-> > 
+> >
 > > Ivan Rubinson
 > >
 > ##Managed by:
